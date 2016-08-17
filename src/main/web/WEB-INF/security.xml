@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <import resource="classpath:/META-INF/appContext.xml"/>
+
+    <security:http use-expressions="true">
+        <!-- login-page з якої сторінки буде логінування  login-processing-url-->
+        <security:form-login login-page="/loginpage" login-processing-url="/loginprocesing"/>
+        <!--<security:intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')"/>-->
+        <security:intercept-url pattern="/" access="permitAll()"/>
+        <security:logout logout-url="/logout" logout-success-url="/"/>
+    </security:http>
+
+    <security:authentication-manager>
+        <security:authentication-provider>
+            <security:user-service>
+                <security:user name="admin" password="admin" authorities="ROLE_ADMIN"/>
+            </security:user-service>
+        </security:authentication-provider>
+        <security:authentication-provider user-service-ref="userServiceImpl">
+            <security:password-encoder ref="encoder"/>
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+</beans>
