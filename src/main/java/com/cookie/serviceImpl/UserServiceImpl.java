@@ -81,7 +81,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         File fileForDelete = new File("/home/koko/eclipseSpace/Cookie/src/main/web/resources/"+user.getUsername()+"/avatar.jpg");
         fileForDelete.delete();
         String avatar = "avatar.jpg";
-
         user.setAvatar("/home/koko/eclipseSpace/Cookie/src/main/web/resources/"+user.getUsername()+"/"+avatar);
 
         File file = new File("/home/koko/eclipseSpace/Cookie/src/main/web/resources/"+user.getUsername()+"/"+avatar);
