@@ -18,25 +18,47 @@
 
     <sec:authentication property="name"/>
     <br>
-    <a href="registration">registration</a>
+    <sec:authorize access="!isAuthenticated()">
+        <a href="registration">registration</a>
+    </sec:authorize>
     <br>
     <a href="loginpage">login</a>
     <br>
-    <a href="newCommodity">add commodity</a>
-    <br>
-    <a href="addIntoBasket">my basket</a>
-    <br>
-    <form:form action="logout" method="post">
-        <button>logout</button>
-    </form:form>
+    <sec:authorize access="hasRole('ROLE_ADMIN')">
+        <a href="newCommodity">add commodity</a>
+        <br>
+            <a href="newShop">new shop</a>
+        <br>
+        <a href="admin">admin page</a>
+        <br>
+    </sec:authorize>
+    <sec:authorize access="isAuthenticated()">
+        <a href="profile">profile</a>
+    </sec:authorize>
+
+    <sec:authorize access="isAuthenticated()">
+        <form:form action="logout" method="post">
+            <button>logout</button>
+        </form:form>
+    </sec:authorize>
     <br>
     <c:forEach var="commodity" items="${commodities}">
         ${commodity.name} ${commodity.price}
+        <c:forEach var="shop" items="${commodity.shops}">
+            ${shop.name}
+        </c:forEach>
+
+
         <sec:authorize access="isAuthenticated()">
-            <a href="intoBasket/${commodity.id}">into basket</a>
+            <a href="/intoBasket/${commodity.id}">into basket</a>
+        </sec:authorize>
+
+
+
+        <sec:authorize access="hasRole('ROLE_ADMIN')">
+            <a href="deleteCommodity/${commodity.id}">delete</a>
         </sec:authorize>
         <br>
     </c:forEach>
-    <%--${cookie.hitCounter.value}--%>
 </body>
 </html>

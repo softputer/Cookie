@@ -12,4 +12,5 @@ public interface CommodityService {
     List<Commodity> findAll();
     Commodity findOne(int id);
     void delete(int id);
+    List<Commodity> selectFetchShop();
 }

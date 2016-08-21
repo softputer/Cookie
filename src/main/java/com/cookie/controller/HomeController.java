@@ -24,6 +24,11 @@ public class HomeController {
     @Autowired
     private CommodityService commodityService;
 
+    @RequestMapping("/")
+    public String home(Model model) {
+        model.addAttribute("commodities", commodityService.selectFetchShop());
+        return "home";
+    }
 
 //    @RequestMapping("/")
 //    public String home(@CookieValue(value = "hitCounter", defaultValue = "0") int hitCounter,
@@ -39,11 +44,7 @@ public class HomeController {
 //        return "home";
 //    }
 
-    @RequestMapping("/")
-    public String home(Model model) {
-        model.addAttribute("commodities", commodityService.findAll());
-        return "home";
-    }
+
 
 //    @RequestMapping(value = "/cookie", method = RequestMethod.POST)
 //    public String getCookie(HttpServletRequest request, HttpServletResponse response, @RequestParam String cookie, Model model) {

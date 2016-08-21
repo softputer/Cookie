@@ -14,12 +14,19 @@
     <title>Title</title>
 </head>
 <body>
-    my basket
+    my profile
     <c:forEach var="commodity" items="${commodities}">
         ${commodity.name} ${commodity.price}
         <a href="getOrder/${commodity.id}">get order</a>
         <a href="deleteCookie/${commodity.id}">delete form basked</a>
         <br>
     </c:forEach>
+
+    <form:form action="/sendImage?${_csrf.parameterName}=${_csrf.token}" method="post" enctype="multipart/form-data" >
+        <input type="file" name="image">
+        <button>Submit</button>
+    </form:form>
+    <br>
+    <img src="${user.avatar}?lastmod=12345678"/>
 </body>
 </html>

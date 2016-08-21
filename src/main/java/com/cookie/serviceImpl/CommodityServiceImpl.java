@@ -35,4 +35,9 @@ public class CommodityServiceImpl implements CommodityService {
     public void delete(int id) {
         commodityRepository.delete(id);
     }
+
+    @Override
+    public List<Commodity> selectFetchShop() {
+        return commodityRepository.selectFetchShop();
+    }
 }

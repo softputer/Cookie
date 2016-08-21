@@ -1,6 +1,7 @@
 package com.cookie.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,6 +18,10 @@ public class Commodity {
     @JoinTable(name = "user_commodities", joinColumns = @JoinColumn(name = "commodity_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> users;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "shop_commodities", joinColumns = @JoinColumn(name = "commodity_id"),
+            inverseJoinColumns = @JoinColumn(name = "shop_id"))
+    private List<Shop>shops = new ArrayList<>();
 
     public Commodity(){
 
@@ -57,6 +62,14 @@ public class Commodity {
 
     public void setUsers(List<User> users) {
         this.users = users;
+    }
+
+    public List<Shop> getShops() {
+        return shops;
+    }
+
+    public void setShops(List<Shop> shops) {
+        this.shops = shops;
     }
 
     @Override
